@@ -13,25 +13,30 @@ QUESTION 1:
 
 What is the output of the `git branch` command?
 ----------
-<paste answer here>
+$ git branch
+  master
+* soheedev
 ----------
 
 How can you tell which branch you're on?
 ----------
-<type answer here>
+I am on soheedev, which is branched from master.
 ----------
 
 QUESTION 2:
 
 ----------
-$ <enter command here>
-<enter output here>
+$ git remote
+origin
+
+$ git remote get-url origin
+https://github.com/totorory33/bst273_lecture09.git
 ----------
 
 QUESTION 3:
 
 ----------
-$ git remote add <What goes here?>
+$ git remote add kevin https://github.com/kescobo/bst273_lecture09.git
 ----------
 
 """
@@ -43,6 +48,27 @@ parser = argparse.ArgumentParser( description="" )
 parser.add_argument(
 	"data_file",
 	help="path to the file we want to read",
+)
+
+parser.add_argument(
+	"-l",
+	action = "store_true",
+	default=False,
+	help="print only the number of lines",
+)
+
+parser.add_argument(
+	"-w",
+	action = "store_true",
+	default=False,
+	help="print only the number of words",
+)
+
+parser.add_argument(
+	"-c",
+	action = "store_true",
+	default=False,
+	help="print only the number of characters (bytes)",
 )
 
 #-------------------------------------------------------------------------------
@@ -86,7 +112,9 @@ for line in fh:
 	# Here is the result from running your python <wc>:
 	#      872    7652
 	# ```
-	#
+
+	words += len(line.split())
+
 	# ## Question 4b (2 pts)
 	#
 	# The last step is to get the number of bytes (characters). According to our
@@ -109,7 +137,7 @@ for line in fh:
 	# Here is the result from running your python <wc>:
 	#      872    7652   45119
 	# ```
-	#
+	chars += len(line)
 	#
 	# ## Question 5 (4 pts)
 	#
@@ -137,6 +165,11 @@ for line in fh:
 	# **Hint:** - even though this question is at the end of the homework script,
 	# you probably need to add some stuff to the beginning of the script too.
 
-
-
-print("   ", lines)
+if args.l == True:
+	print(" ", lines)
+if args.w == True:
+	print(" ", words)
+if args.c == True:
+	print(" ", chars)
+if args.l == False & args.w == False & args.c == False:
+	print(" ", lines, " \t", words, "\t", chars)
